@@ -2,6 +2,7 @@ package com.polarbookshop.catalogservice.domain;
 
 import org.springframework.stereotype.Service;
 
+// 애플리케이션의 사용사례 구현
 // @Service : 해당 클래스가 스프링이 관리하는 서비스임을 표시하는 스트레오타입 애너테이션
 @Service
 public class BookService {
@@ -31,7 +32,7 @@ public class BookService {
     }
 
     public void removeBookFromCatalog(String isbn) {
-        bookRepository.deleteByIsbn();
+        bookRepository.deleteByIsbn(isbn);
     }
     public Book editBookDetails(String isbn, Book book) {
         return bookRepository.findByIsbn(isbn).map(existingBook -> {
