@@ -2,10 +2,12 @@ package com.polarbookshop.catalogservice;
 
 import com.polarbookshop.catalogservice.domain.Book;
 import com.polarbookshop.catalogservice.domain.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("books")
 public class BookController {
     private final BookService bookService;
 
@@ -28,7 +30,7 @@ public class BookController {
     // 책이 성공적으로 생성되면 201 상태코드를 반환
     @ResponseStatus(HttpStatus.CREATED) // 성공시 201 상태코드 반환
     //@RequestBody는 웹 요청의 본문을 메서드 변수로 바인드
-    public Book post(@RequestBody Book book) {
+    public Book post(@Valid @RequestBody Book book) {
         return bookService.addBookToCatalog(book);
     }
 
@@ -40,7 +42,7 @@ public class BookController {
 
     @PutMapping("{isbn}")
     //@RequestBody : 요청 본문(JSON 형식의 데이터를 Book 객체로 변환)하여 컨트롤러 메서드에 전달
-    public Book put(@PathVariable String isbn, @RequestBody Book book) {
+    public Book put(@PathVariable String isbn, @Valid @RequestBody Book book) {
         return bookService.editBookDetails(isbn, book);
     }
 
